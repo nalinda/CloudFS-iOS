@@ -102,8 +102,8 @@ NSString * const kBackgroundSessionIdentifier = @"com.Bitcasa.backgroundSession"
 
 - (void) URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
 {
-    if ([_delegate respondsToSelector:@selector(itemAtPath:didCompleteDownloadToURL:error:)])
-        [_delegate itemAtPath:task.taskDescription didCompleteDownloadToURL:nil error:error];
+//    if ([_delegate respondsToSelector:@selector(itemAtPath:didCompleteDownloadToURL:error:)])
+//        [_delegate itemAtPath:task.taskDescription didCompleteDownloadToURL:nil error:error];
 }
 
 - (void)URLSession:(NSURLSession *)session didBecomeInvalidWithError:(NSError *)error
@@ -159,7 +159,7 @@ NSString * const kBackgroundSessionIdentifier = @"com.Bitcasa.backgroundSession"
 {
     if ([_delegate respondsToSelector:@selector(file:didCompleteUploadWithError:)])
     {
-        NSString* parentPath = [[connection originalRequest].URL absoluteString];
+        NSString* parentPath = [[[[connection originalRequest].URL path] componentsSeparatedByString:@"files"] lastObject];
         
         NSDictionary* resultDict = [BitcasaAPI resultDictFromResponseData:_lastReceivedData];
         File* uploadedFile = [[File alloc] initWithDictionary:resultDict andParentPath:parentPath];

@@ -619,12 +619,12 @@ NSString* const kShareResponseResultDateCreated = @"date_created";
     }
     else
     {
-        NSData *tempData = [NSData dataWithContentsOfFile:[sourceURL absoluteString]];
+        NSData *tempData = [NSData dataWithContentsOfFile:[sourceURL path]];
         if (!tempData)
             return;
         NSInputStream *inputStream = [[NSInputStream alloc] initWithData:tempData];
     
-        NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:[sourceURL absoluteString] error:nil];
+        NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:[sourceURL path] error:nil];
         NSUInteger dataLength = 0;
         if (attributes)
             dataLength = [attributes[NSFileSize] unsignedIntegerValue];
