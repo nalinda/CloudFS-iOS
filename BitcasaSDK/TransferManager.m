@@ -102,8 +102,8 @@ NSString * const kBackgroundSessionIdentifier = @"com.Bitcasa.backgroundSession"
 
 - (void) URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
 {
-    if ([_delegate respondsToSelector:@selector(itemAtPath:didCompleteDownloadToURL:error:)])
-        [_delegate itemAtPath:task.taskDescription didCompleteDownloadToURL:nil error:error];
+//    if ([_delegate respondsToSelector:@selector(itemAtPath:didCompleteDownloadToURL:error:)])
+//        [_delegate itemAtPath:task.taskDescription didCompleteDownloadToURL:nil error:error];
 }
 
 - (void)URLSession:(NSURLSession *)session didBecomeInvalidWithError:(NSError *)error
