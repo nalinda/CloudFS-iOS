@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Bitcasa. All rights reserved.
 //
 
-#import "Container.h"
+#import "Folder.h"
 #import "BitcasaAPI.h"
 
 NSString* const kAPIEndpointFolderAction = @"/folders";
@@ -32,7 +32,7 @@ NSString* const kAPIEndpointFolderAction = @"/folders";
         if (newContainerDict == nil)
             completion(nil);
         
-        Container* newDir = [[Container alloc] initWithDictionary:newContainerDict andParentContainer:self];
+        Folder* newDir = [[Folder alloc] initWithDictionary:newContainerDict andParentContainer:self];
         completion(newDir);
     }];
 }
