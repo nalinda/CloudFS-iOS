@@ -194,6 +194,9 @@ NSString* const kShareResponseResultDateCreated = @"date_created";
     NSString* formParameters = [NSString parameterStringWithArray:parameters];
     [tokenRequest setHTTPBody:[formParameters dataUsingEncoding:NSUTF8StringEncoding]];
     
+    // prevents cookie being sent to API so that it generates a new token for each request
+    [tokenRequest setHTTPShouldHandleCookies:NO];
+    
     NSError* err;
     NSHTTPURLResponse *response;
     NSData *data = [NSURLConnection sendSynchronousRequest:tokenRequest returningResponse:&response error:&err];
