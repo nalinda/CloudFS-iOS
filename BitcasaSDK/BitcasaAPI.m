@@ -181,7 +181,9 @@ NSString* const kShareResponseResultDateCreated = @"date_created";
     NSURL* tokenReqURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", baseCredentials.serverURL, [BitcasaAPI apiVersion], kAPIEndpointToken]];
     NSMutableURLRequest* tokenRequest = [NSMutableURLRequest requestWithURL:tokenReqURL];
     [tokenRequest setHTTPMethod:kHTTPMethodPOST];
-    [tokenRequest setHTTPShouldHandleCookies:FALSE];
+    
+    // prevents cookie being sent to API so that it generates a new token for each request
+    [tokenRequest setHTTPShouldHandleCookies:NO];
     
     NSString* signedRequestStr = [BitcasaAPI generateSignedRequestString:requestString];
     
@@ -194,9 +196,6 @@ NSString* const kShareResponseResultDateCreated = @"date_created";
     // setting HTTP request parameters
     NSString* formParameters = [NSString parameterStringWithArray:parameters];
     [tokenRequest setHTTPBody:[formParameters dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    // prevents cookie being sent to API so that it generates a new token for each request
-    [tokenRequest setHTTPShouldHandleCookies:NO];
     
     NSError* err;
     NSHTTPURLResponse *response;
