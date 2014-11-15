@@ -86,7 +86,7 @@ NSString * const kBackgroundSessionIdentifier = @"com.Bitcasa.backgroundSession"
     [fileManager copyItemAtURL:location toURL:destinationUrl error:&errorCopy];
 
     if ([_delegate respondsToSelector:@selector(itemAtPath:didCompleteDownloadToURL:error:)])
-        [_delegate itemAtPath:downloadTask.taskDescription didCompleteDownloadToURL:destinationUrl error:nil];
+        [_delegate itemAtPath:downloadTask.taskDescription didCompleteDownloadToURL:destinationUrl error:errorCopy];
 }
 
 - (void) URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
@@ -102,8 +102,8 @@ NSString * const kBackgroundSessionIdentifier = @"com.Bitcasa.backgroundSession"
 
 - (void) URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
 {
-//    if ([_delegate respondsToSelector:@selector(itemAtPath:didCompleteDownloadToURL:error:)])
-//        [_delegate itemAtPath:task.taskDescription didCompleteDownloadToURL:nil error:error];
+    if (error && [_delegate respondsToSelector:@selector(itemAtPath:didCompleteDownloadToURL:error:)])
+        [_delegate itemAtPath:task.taskDescription didCompleteDownloadToURL:nil error:error];
 }
 
 - (void)URLSession:(NSURLSession *)session didBecomeInvalidWithError:(NSError *)error
